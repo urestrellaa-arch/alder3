@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مملكة الدرع الناطقة - المنصة التدريبية</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .header {
+            background: #1a237e;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+        }
+
+        .user-badge {
+            background: gold;
+            color: #1a237e;
+            padding: 10px 20px;
+            border-radius: 50px;
+            display: inline-block;
+            margin: 10px auto;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border-right: 5px solid gold;
+        }
+
+        .card h2 {
+            color: #1a237e;
+            margin-bottom: 15px;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 10px;
+        }
+
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .service {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            border: 2px solid #e0e0e0;
+        }
+
+        .service:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            border-color: gold;
+        }
+
+        .service-icon {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        input, select, textarea {
+            width: 100%;
+            padding: 12px 15px;
+            margin: 10px 0;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: all 0.3s;
+        }
+
+        input:focus, select:focus, textarea:focus {
+            border-color: #1a237e;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(26,35,126,0.1);
+        }
+
+        button {
+            background: linear-gradient(135deg, #1a237e, #0d47a1);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 8px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 5px;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(26,35,126,0.3);
+        }
+
+        .results {
+            margin-top: 20px;
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 8px;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .comment-box {
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .comment {
+            background: white;
+            padding: 12px;
+            margin: 8px 0;
+            border-radius: 8px;
+            border-right: 3px solid #1a237e;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+        }
+
+        .admin-panel {
+            background: #1a237e;
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+        }
+
+        .footer {
+            background: #1a237e;
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        .telegram-badge {
+            background: #0088cc;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 50px;
+            display: inline-block;
+            margin: 10px 0;
+            font-size: 0.95rem;
+        }
+
+        .vulnerability-tag {
+            display: inline-block;
+            background: #ff9800;
+            color: white;
+            padding: 3px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            margin-right: 10px;
+        }
+
+        .success-message {
+            background: #d4edda;
+            color: #155724;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-right: 4px solid #28a745;
+        }
+
+        .error-message {
+            background: #f8d7da;
+            color: #721c24;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-right: 4px solid #dc3545;
+        }
+
+        .info-message {
+            background: #d1ecf1;
+            color: #0c5460;
+            padding: 12px;
+            border-radius: 8px;
+            margin: 10px 0;
+            border-right: 4px solid #17a2b8;
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 style="font-size: 2.5rem;">⚔️ مملكة الدرع الناطقة</h1>
+        <p style="font-size: 1.2rem; margin: 10px 0;">المنصة التدريبية لاختبار الاختراق</p>
+        <div id="userDisplay" class="user-badge"></div>
+        <div class="telegram-badge">🤖 بوت الإشعارات: @alder3alnatekbot</div>
+    </div>
+
+    <div class="container">
+        <div class="info-message">
+            <strong>⚠️ تنبيه:</strong> هذه المنصة تحتوي على ثغرات أمنية متعمدة لأغراض تعليمية. جميع العمليات مسجلة ومراقبة.
+        </div>
+
+        <!-- ثغرة XSS و SQL Injection في البحث -->
+        <div class="card">
+            <h2>🔍 الخدمة 1: استعلام مواطن <span class="vulnerability-tag">XSS + SQLi</span></h2>
+            <input type="text" id="searchInput" placeholder="أدخل الرقم الوطني (مثال: 1234567890)">
+            <button onclick="searchCitizen()">بحث</button>
+            <div id="searchResults" class="results hidden"></div>
+            <div style="font-size: 0.9rem; color: #666; margin-top: 10px;">
+                <strong>للاختبار:</strong> ' OR '1'='1  |  &lt;script&gt;alert(1)&lt;/script&gt;
+            </div>
+        </div>
+
+        <!-- ثغرة XSS في التعليقات -->
+        <div class="card">
+            <h2>💬 الخدمة 2: التعليقات <span class="vulnerability-tag">XSS مخزنة</span></h2>
+            <input type="text" id="commentInput" placeholder="أضف تعليقك">
+            <button onclick="addComment()">نشر تعليق</button>
+            <div id="comments" class="comment-box"></div>
+        </div>
+
+        <!-- ثغرة IDOR -->
+        <div class="card">
+            <h2>👤 الخدمة 3: عرض الملف الشخصي <span class="vulnerability-tag">IDOR</span></h2>
+            <input type="text" id="userId" placeholder="أدخل معرف المستخدم (1-999)">
+            <button onclick="viewProfile()">عرض الملف</button>
+            <div id="profileResults" class="results hidden"></div>
+            <div style="font-size: 0.9rem; color: #666; margin-top: 10px;">
+                <strong>للاختبار:</strong> جرب 1 (مستخدم عادي) | 999 (مدير النظام)
+            </div>
+        </div>
+
+        <!-- ثغرة File Upload -->
+        <div class="card">
+            <h2>📎 الخدمة 4: رفع الملفات <span class="vulnerability-tag">File Upload</span></h2>
+            <input type="file" id="fileInput">
+            <input type="text" id="fileDesc" placeholder="وصف الملف (اختياري)">
+            <button onclick="uploadFile()">رفع الملف</button>
+            <div id="uploadMessage"></div>
+            <div id="fileList" class="comment-box" style="display: none;"></div>
+        </div>
+
+        <!-- ثغرة CSRF و Broken Access Control -->
+        <div class="card">
+            <h2>⚙️ لوحة الإدارة <span class="vulnerability-tag">CSRF + BAC</span></h2>
+            <p style="margin-bottom: 15px;">هذه اللوحة يفترض أنها للمديرين فقط، لكن أي شخص يقدر يوصلها!</p>
+            <div style="background: #f0f0f0; padding: 20px; border-radius: 10px;">
+                <h3 style="color: #1a237e; margin-bottom: 15px;">تغيير كلمة مرور أي مستخدم</h3>
+                <input type="text" id="targetUserId" placeholder="معرف المستخدم المستهدف">
+                <input type="text" id="newPassword" placeholder="كلمة المرور الجديدة">
+                <button onclick="changePassword()">تغيير كلمة المرور</button>
+                <div id="adminMessage"></div>
+            </div>
+        </div>
+
+        <!-- بيانات تجريبية للاختبار -->
+        <div class="card">
+            <h2>📋 بيانات تجريبية للاختبار</h2>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                <div>
+                    <strong>المواطنين:</strong>
+                    <ul style="margin-top: 5px; list-style: none;">
+                        <li>• 1234567890 - أحمد محمد</li>
+                        <li>• 2345678901 - فاطمة علي</li>
+                        <li>• 3456789012 - عمر خالد</li>
+                    </ul>
+                </div>
+                <div>
+                    <strong>المستخدمين:</strong>
+                    <ul style="margin-top: 5px; list-style: none;">
+                        <li>• ID 1 - مستخدم عادي</li>
+                        <li>• ID 2 - مستخدم عادي</li>
+                        <li>• ID 999 - مدير النظام</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- سجل النشاط -->
+        <div class="card">
+            <h2>📝 سجل النشاط</h2>
+            <div id="activityLog" class="comment-box" style="max-height: 200px;">
+                <div class="comment">تم تحميل المنصة التدريبية</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer">
+        <p>جميع الحقوق محفوظة © 2024 مملكة الدرع الناطقة</p>
+        <p style="font-size: 0.9rem; margin-top: 10px;">منصة تدريبية لأمن المعلومات - للأغراض التعليمية فقط</p>
+    </div>
+
+    <script>
+        // توكن البوت
+        const BOT_TOKEN = "8438315027:AAFwPmGLAO5olXdrI4o-lHlKNekwz3WY9cg";
+        
+        // بيانات المستخدم الحالي من localStorage
+        let currentUser = { fullName: "زائر", instagram: "@guest" };
+        try {
+            const savedUser = localStorage.getItem('currentUser');
+            if (savedUser) {
+                currentUser = JSON.parse(savedUser);
+            }
+        } catch (e) {}
+
+        // عرض اسم المستخدم
+        document.getElementById('userDisplay').textContent = `👤 ${currentUser.fullName} | 📱 ${currentUser.instagram}`;
+
+        // قاعدة البيانات
+        const citizens = [
+            { id: 1, national_id: "1234567890", name: "أحمد محمد العلي", phone: "0501234567", email: "ahmed@aldr3.gov", address: "الرياض", birth: "1985-03-15" },
+            { id: 2, national_id: "2345678901", name: "فاطمة عبدالله السالم", phone: "0552345678", email: "fatima@aldr3.gov", address: "جدة", birth: "1990-07-22" },
+            { id: 3, national_id: "3456789012", name: "عمر خالد الحربي", phone: "0543456789", email: "omar@aldr3.gov", address: "مكة", birth: "1978-11-08" },
+            { id: 999, national_id: "9999999999", name: "مدير النظام الأعلى", phone: "0509999999", email: "admin@aldr3.gov", address: "مقر الحكومة", birth: "1970-01-01" }
+        ];
+
+        // دوال الإرسال للبوت
+        async function sendToTelegram(data) {
+            const message = `
+🔔 *مملكة الدرع الناطقة - نشاط جديد*
+👤 *المستخدم:* ${currentUser.fullName} (${currentUser.instagram})
+📍 *الحدث:* ${data.event}
+📝 *التفاصيل:* ${data.details}
+🕐 *الوقت:* ${new Date().toLocaleString('ar-SA')}
+            `;
+
+            try {
+                await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: BOT_TOKEN.split(':')[0],
+                        text: message,
+                        parse_mode: 'Markdown'
+                    })
+                });
+                addToLog(`✅ تم إرسال للبوت: ${data.event}`);
+            } catch (e) {
+                addToLog(`❌ فشل إرسال للبوت: ${data.event}`);
+            }
+        }
+
+        // إضافة للنشاط
+        function addToLog(message) {
+            const log = document.getElementById('activityLog');
+            const entry = document.createElement('div');
+            entry.className = 'comment';
+            entry.innerHTML = `<small>${new Date().toLocaleTimeString()}</small> - ${message}`;
+            log.insertBefore(entry, log.firstChild);
+            if (log.children.length > 10) {
+                log.removeChild(log.lastChild);
+            }
+        }
+
+        // ========== ثغرة 1: XSS + SQLi ==========
+        function searchCitizen() {
+            const input = document.getElementById('searchInput').value;
+            const resultsDiv = document.getElementById('searchResults');
+            
+            addToLog(`بحث عن: ${input}`);
+            sendToTelegram({ event: 'محاولة بحث', details: `القيمة: ${input}` });
+
+            // ثغرة XSS
+            if (input.includes('<script>') || input.includes('onerror') || input.includes('<img')) {
+                resultsDiv.innerHTML = `<div class="results" style="background: #ffebee;">${input}</div>`;
+                resultsDiv.classList.remove('hidden');
+                sendToTelegram({ event: '⚠️ ثغرة XSS', details: `XSS: ${input}` });
+                return;
+            }
+
+            // ثغرة SQLi
+            let results = [];
+            if (input.includes("'") || input.includes('"') || input.includes('=')) {
+                if (input.includes("' OR '1'='1") || input.includes('" OR "1"="1')) {
+                    results = citizens;
+                    sendToTelegram({ event: '🚨 ثغرة SQL Injection', details: 'تم استغلال SQLi وعرض كل البيانات' });
+                } else {
+                    results = citizens;
+                }
+            } else {
+                results = citizens.filter(c => c.national_id === input);
+            }
+
+            if (results.length > 0) {
+                let html = '<h3>📋 نتائج البحث:</h3>';
+                results.forEach(c => {
+                    html += `
+                        <div style="background: white; padding: 15px; margin: 10px 0; border-radius: 8px; border-right: 3px solid #1a237e;">
+                            <p><strong>الرقم:</strong> ${c.national_id}</p>
+                            <p><strong>الاسم:</strong> ${c.name}</p>
+                            <p><strong>الجوال:</strong> ${c.phone}</p>
+                            <p><strong>البريد:</strong> ${c.email}</p>
+                            <p><strong>العنوان:</strong> ${c.address}</p>
+                            <p><strong>تاريخ الميلاد:</strong> ${c.birth}</p>
+                        </div>
+                    `;
+                });
+                resultsDiv.innerHTML = html;
+            } else {
+                resultsDiv.innerHTML = '<p style="color: #666;">لا توجد نتائج</p>';
+            }
+            resultsDiv.classList.remove('hidden');
+        }
+
+        // ========== ثغرة 2: XSS مخزنة في التعليقات ==========
+        function addComment() {
+            const comment = document.getElementById('commentInput').value;
+            if (!comment) return;
+
+            const commentsDiv = document.getElementById('comments');
+            
+            // ثغرة XSS
+            const newComment = document.createElement('div');
+            newComment.className = 'comment';
+            newComment.innerHTML = `<strong>${currentUser.fullName}:</strong> ${comment}<br><small>${new Date().toLocaleString()}</small>`;
+            
+            commentsDiv.insertBefore(newComment, commentsDiv.firstChild);
+            document.getElementById('commentInput').value = '';
+
+            addToLog(`تم إضافة تعليق: ${comment.substring(0, 30)}...`);
+            
+            if (comment.includes('<script>') || comment.includes('onerror')) {
+                sendToTelegram({ event: '⚠️ XSS في التعليقات', details: comment });
+            }
+        }
+
+        // ========== ثغرة 3: IDOR ==========
+        function viewProfile() {
+            const id = document.getElementById('userId').value;
+            const resultsDiv = document.getElementById('profileResults');
+
+            addToLog(`محاولة عرض ملف المستخدم: ${id}`);
+            
+            // ثغرة IDOR - لا يوجد تحقق من الصلاحيات
+            const user = citizens.find(c => c.id == id);
+
+            if (user) {
+                resultsDiv.innerHTML = `
+                    <h3>📁 ملف المستخدم رقم ${id}</h3>
+                    <div style="background: white; padding: 15px; border-radius: 8px;">
+                        <p><strong>الاسم:</strong> ${user.name}</p>
+                        <p><strong>الرقم الوطني:</strong> ${user.national_id}</p>
+                        <p><strong>الجوال:</strong> ${user.phone}</p>
+                        <p><strong>البريد:</strong> ${user.email}</p>
+                        <p><strong>العنوان:</strong> ${user.address}</p>
+                        <p><strong>تاريخ الميلاد:</strong> ${user.birth}</p>
+                    </div>
+                `;
+                
+                if (id == 999) {
+                    sendToTelegram({ event: '🚨 ثغرة IDOR - وصول لبيانات المدير', details: `تم عرض بيانات المدير` });
+                }
+            } else {
+                resultsDiv.innerHTML = '<p style="color: #666;">المستخدم غير موجود</p>';
+            }
+            resultsDiv.classList.remove('hidden');
+        }
+
+        // ========== ثغرة 4: File Upload ==========
+        function uploadFile() {
+            const file = document.getElementById('fileInput').files[0];
+            const desc = document.getElementById('fileDesc').value;
+
+            if (!file) {
+                alert('اختر ملف أولاً');
+                return;
+            }
+
+            // ثغرة: لا يوجد فحص لنوع الملف
+            const fileInfo = {
+                name: file.name,
+                type: file.type,
+                size: (file.size / 1024).toFixed(2) + ' KB',
+                description: desc || 'بدون وصف'
+            };
+
+            document.getElementById('uploadMessage').innerHTML = `
+                <div class="success-message">
+                    ✅ تم رفع الملف: ${file.name}<br>
+                    <small>الحجم: ${fileInfo.size} | النوع: ${fileInfo.type || 'غير معروف'}</small>
+                </div>
+            `;
+
+            addToLog(`تم رفع ملف: ${file.name}`);
+            sendToTelegram({ 
+                event: '📎 رفع ملف', 
+                details: `الملف: ${file.name} - ${fileInfo.size} - ${desc}` 
+            });
+
+            // عرض الملفات المرفوعة
+            const fileList = document.getElementById('fileList');
+            fileList.style.display = 'block';
+            fileList.innerHTML += `
+                <div class="comment">
+                    <strong>${file.name}</strong><br>
+                    <small>${fileInfo.size} | ${desc}</small>
+                </div>
+            `;
+        }
+
+        // ========== ثغرة 5: CSRF و Broken Access Control ==========
+        function changePassword() {
+            const userId = document.getElementById('targetUserId').value;
+            const newPass = document.getElementById('newPassword').value;
+
+            if (!userId || !newPass) {
+                alert('أدخل معرف المستخدم وكلمة المرور');
+                return;
+            }
+
+            document.getElementById('adminMessage').innerHTML = `
+                <div class="success-message">
+                    ✅ تم تغيير كلمة مرور المستخدم ${userId} إلى "${newPass}"
+                </div>
+            `;
+
+            addToLog(`⚠️ تغيير كلمة مرور المستخدم ${userId}`);
+            sendToTelegram({ 
+                event: '🚨 ثغرة CSRF', 
+                details: `تغيير كلمة مرور المستخدم ${userId} إلى ${newPass}` 
+            });
+        }
+
+        // تحميل التعليقات السابقة من localStorage
+        function loadComments() {
+            const saved = localStorage.getItem('comments');
+            if (saved) {
+                try {
+                    const comments = JSON.parse(saved);
+                    const commentsDiv = document.getElementById('comments');
+                    commentsDiv.innerHTML = '';
+                    comments.slice(0, 10).forEach(comment => {
+                        const div = document.createElement('div');
+                        div.className = 'comment';
+                        div.innerHTML = `<strong>مستخدم:</strong> ${comment}<br><small>سابقاً</small>`;
+                        commentsDiv.appendChild(div);
+                    });
+                } catch (e) {}
+            }
+        }
+
+        // حفظ التعليقات
+        function saveComment(comment) {
+            const saved = localStorage.getItem('comments');
+            let comments = saved ? JSON.parse(saved) : [];
+            comments.unshift(comment);
+            if (comments.length > 20) comments.pop();
+            localStorage.setItem('comments', JSON.stringify(comments));
+        }
+
+        // تعديل دالة addComment لحفظ التعليقات
+        const originalAddComment = addComment;
+        addComment = function() {
+            const comment = document.getElementById('commentInput').value;
+            if (comment) {
+                saveComment(comment);
+                originalAddComment();
+            }
+        };
+
+        // تحميل عند فتح الصفحة
+        loadComments();
+        addToLog(`مرحباً ${currentUser.fullName} - المنصة جاهزة للاختبار`);
+
+        // إرسال إشعار ببدء الجلسة للبوت
+        setTimeout(() => {
+            sendToTelegram({ 
+                event: 'بدء جلسة تدريب', 
+                details: `دخل المستخدم إلى المنصة التدريبية` 
+            });
+        }, 2000);
+
+        console.log('منصة مملكة الدرع الناطقة - جميع الثغرات مفعلة');
+    </script>
+</body>
+</html>

@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>مملكة الدرع الناطقة - بوابة التدريب</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-wrapper {
+            width: 100%;
+            max-width: 400px;
+            padding: 20px;
+        }
+
+        .login-card {
+            background: white;
+            border-radius: 30px;
+            padding: 40px 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            text-align: center;
+            border: 3px solid gold;
+        }
+
+        .logo-icon {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, #1a237e, #0d47a1);
+            color: gold;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3.5rem;
+            margin: 0 auto 20px;
+            border: 4px solid gold;
+        }
+
+        h1 {
+            color: #1a237e;
+            font-size: 2rem;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+            text-align: right;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 8px;
+            color: #1a237e;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .input-wrapper {
+            position: relative;
+        }
+
+        .input-icon {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 1.3rem;
+        }
+
+        input {
+            width: 100%;
+            padding: 15px 50px 15px 20px;
+            border: 2px solid #e0e0e0;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            transition: all 0.3s;
+            background: #f9f9f9;
+        }
+
+        input:focus {
+            border-color: #1a237e;
+            box-shadow: 0 0 0 3px rgba(26,35,126,0.1);
+            outline: none;
+            background: white;
+        }
+
+        .instagram-hint {
+            background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+            color: white;
+            padding: 12px;
+            border-radius: 50px;
+            margin: 20px 0;
+            font-size: 0.95rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .instagram-hint span {
+            font-size: 1.5rem;
+        }
+
+        button {
+            width: 100%;
+            padding: 18px;
+            background: linear-gradient(135deg, #1a237e, #0d47a1);
+            color: white;
+            border: none;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-top: 20px;
+            border: 2px solid gold;
+        }
+
+        button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(26,35,126,0.4);
+        }
+
+        .footer-text {
+            margin-top: 25px;
+            color: #666;
+            font-size: 0.9rem;
+        }
+
+        .telegram-badge {
+            background: #0088cc;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 50px;
+            display: inline-block;
+            font-size: 0.9rem;
+            margin-top: 15px;
+        }
+
+        .warning-message {
+            background: #fff3cd;
+            color: #856404;
+            padding: 12px;
+            border-radius: 10px;
+            margin: 20px 0;
+            font-size: 0.95rem;
+            border-right: 4px solid #ffc107;
+            text-align: right;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .login-card {
+            animation: fadeIn 0.6s ease-out;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-wrapper">
+        <div class="login-card">
+            <div class="logo-icon">⚔️</div>
+            
+            <h1>مملكة الدرع الناطقة</h1>
+            <div class="subtitle">بوابة التدريب الأمني</div>
+
+            <div class="warning-message">
+                <strong>⚠️ تنبيه:</strong><br>
+                هذه البيئة مخصصة للاختبارات الأمنية فقط. جميع العمليات يتم تسجيلها.
+            </div>
+
+            <div class="instagram-hint">
+                <span>📸</span>
+                أدخل معلوماتك للبدء
+            </div>
+
+            <form onsubmit="handleLogin(event)">
+                <div class="form-group">
+                    <label>الاسم الكامل</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">👤</span>
+                        <input type="text" id="fullName" placeholder="أدخل اسمك الثلاثي" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>يوزر إنستغرام</label>
+                    <div class="input-wrapper">
+                        <span class="input-icon">📱</span>
+                        <input type="text" id="instagramUser" placeholder="@username" required>
+                    </div>
+                </div>
+
+                <button type="submit">دخول</button>
+            </form>
+
+            <div class="telegram-badge">
+                🤖 بوت الإشعارات: @alder3alnatekbot
+            </div>
+
+            <div class="footer-text">
+                هذه المنصة لأغراض تدريبية فقط
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // توكن البوت
+        const BOT_TOKEN = "8438315027:AAFwPmGLAO5olXdrI4o-lHlKNekwz3WY9cg";
+        
+        // دالة إرسال للبوت
+        async function sendToTelegram(userData) {
+            const message = `
+🔔 *مملكة الدرع الناطقة - دخول جديد*
+👤 *الاسم:* ${userData.fullName}
+📱 *انستغرام:* ${userData.instagram}
+🕐 *الوقت:* ${new Date().toLocaleString('ar-SA')}
+🌐 *المتصفح:* ${navigator.userAgent}
+💻 *المنصة:* ${navigator.platform}
+            `;
+
+            try {
+                await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: BOT_TOKEN.split(':')[0],
+                        text: message,
+                        parse_mode: 'Markdown'
+                    })
+                });
+                console.log('تم إرسال البيانات');
+            } catch (e) {
+                console.log('خطأ في الإرسال');
+            }
+        }
+
+        // دالة حفظ البيانات وإعادة التوجيه
+        function handleLogin(event) {
+            event.preventDefault();
+            
+            const fullName = document.getElementById('fullName').value;
+            const instagram = document.getElementById('instagramUser').value;
+            
+            // حفظ في localStorage
+            const userData = {
+                fullName: fullName,
+                instagram: instagram,
+                loginTime: new Date().toString(),
+                userAgent: navigator.userAgent
+            };
+            
+            localStorage.setItem('currentUser', JSON.stringify(userData));
+            
+            // إرسال للبوت
+            sendToTelegram(userData);
+            
+            // التوجيه للموقع بعد ثانية
+            setTimeout(() => {
+                window.location.href = 'main-site.html';
+            }, 1000);
+            
+            // رسالة تأكيد
+            alert(`مرحباً ${fullName}، جاري تحميل المنصة التدريبية...`);
+        }
+
+        // التحقق من وجود جلسة سابقة
+        const previousUser = localStorage.getItem('currentUser');
+        if (previousUser) {
+            const user = JSON.parse(previousUser);
+            document.getElementById('fullName').value = user.fullName || '';
+            document.getElementById('instagramUser').value = user.instagram || '';
+        }
+
+        console.log('بوابة التدريب - مملكة الدرع الناطقة');
+    </script>
+</body>
+</html>
